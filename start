@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Deploy base data and config if required
+[ -f data/_dummy ] || tar -xvf /data.tar
+[ -f conf/dokuwiki.php ] || tar -xvf /conf.tar
+
+# Fix the permissions
+chown -R www-data: data conf
+
+# Run apache
+exec apache2-foreground
